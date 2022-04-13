@@ -1,0 +1,312 @@
+-------#1--------#1----------#1
+-------------------------------------------------------------------1
+CREATE TABLE students(
+        id SERIAL PRIMARY KEY,
+        first_name VARCHAR(120) NOT NULL,
+        last_name VARCHAR(120) NOT NULL ,
+        gender VARCHAR(20) NOT NULL,
+        date_of_birth DATE
+);
+
+INSERT INTO students(first_name, last_name, gender, date_of_birth)
+VALUES ('Karina','Zulpukarova','Female','1999-10-30'),
+       ('Zarina','Anisova','Female','1999-11-11'),
+       ('Sapar','Saparov','Male','1998-01-14');
+
+--------#2-----#2------#2
+----------------------------------------------------------------------2
+CREATE TABLE computers(
+        id SERIAL PRIMARY KEY ,
+        computer_name VARCHAR(100),
+        computer_color VARCHAR(100),
+        students_id int REFERENCES students(id)
+);
+
+INSERT INTO computers (computer_name, computer_color,students_id)
+VALUES ('Acer','blue',1),
+       ('Asus','black',2),
+       ('Macbook','gold',3);
+
+SELECT * FROM computers;
+ALTER TABLE computers ADD made_in VARCHAR(150);
+
+
+SELECT * FROM students;
+SELECT * FROM students WHERE gender = 'male';
+
+-----------------------------------------------------------------------------
+--------#3--------#3--------#3
+---------------------------------------------------------------3
+CREATE TABLE company(
+        id SERIAL PRIMARY KEY NOT NULL,
+        name VARCHAR(150) NOT NULL,
+        date DATE NOT NULL,
+        owner VARCHAR(150) NOT NULL
+
+);
+
+INSERT INTO company(id,name, date)
+VALUES (1,'Google','2022-04-01'),
+       (2,'Meta','2020-12-12'),
+       (3,'Microsoft','2021-10-10');
+
+-------#4--------#4------#4
+--------------------------------------------------------------------4
+CREATE TABLE employee(
+        id SERIAL PRIMARY KEY NOT NULL ,
+        name VARCHAR(150) NOT NULL ,
+        surname VARCHAR(150) NOT NULL ,
+        email VARCHAR(100)
+);
+
+INSERT INTO employee(name, surname, email)
+VALUES  ('sara','Milano','sara1@gmail.com'),
+        ('Saikal','avazova','saku@mail.ru'),
+        ('asiya','salkaeva','asya@gmail.com');
+
+SELECT*FROM employee;
+SELECT *  FROM company  ;
+ALTER TABLE company DROP owner;
+
+SELECT company.Name,employee.Name From company,employee
+    where employee.id = Company.id ;
+-------------------------------------------------------------------------------
+------#5-----#5------#5
+----------------------------------------------------------------------5
+
+CREATE TABLE libraries(
+        id SERIAL PRIMARY KEY ,
+        library_name VARCHAR(150) NOT NULL ,
+        library_phone NUMERIC NOT NULL
+);
+INSERT INTO libraries(library_name,library_phone)
+VALUES ('Nekrasova',+79778899123),
+       ('Lenina',+79996655444);
+
+-----#6-------#6------#6
+---------------------------------------------------------------------6
+CREATE TABLE books(
+       id SERIAL PRIMARY KEY ,
+       book_name VARCHAR(100),
+       book_type VARCHAR(120),
+       library_number INT REFERENCES libraries(id),
+       students_id INT REFERENCES students(id)
+);
+
+
+INSERT INTO books(book_name, book_type, library_number,students_id)
+VALUES ('How to Win Friends and Influence People','self-development',1,1),
+       ('Treasure island','novel',2,2);
+
+SELECT * FROM libraries;
+SELECT* FROM books;
+select*from books where id=2;
+ALTER TABLE books ADD COLUMN students_id text;
+
+-----------------------------------------------------------------------------------------------
+-------#7-------#7-------#7
+--------------------------------------------------------------------7
+
+CREATE TABLE mts_users (
+        id  INT NOT NULL,
+        mts_user_name  VARCHAR(250) NOT NULL,
+        city      VARCHAR(250) NULL,
+        birthday  DATE NULL
+);
+
+INSERT INTO mts_users(id,mts_user_name,city,birthday)
+VALUES(1,'Andrei','Moscow','1993-10-10'),
+       (2,'Liza','Samara','2001-11-11'),
+       (3,'Olia','Osh','1966-01-01');
+
+SELECT * FROM mts_users;
+ALTER TABLE mts_users DROP COLUMN city;
+
+--------#8------#8-----#8
+----------------------------------------------------------------------8
+
+CREATE TABLE accounts (
+        user_id serial PRIMARY KEY,
+        username VARCHAR ( 50 ) UNIQUE NOT NULL,
+        password VARCHAR ( 50 ) NOT NULL,
+        email VARCHAR ( 255 ) UNIQUE NOT NULL
+
+);
+
+INSERT INTO accounts(username,password,email)
+VALUES('QWERY','12345','QWERY@gmail.com'),
+       ('asus','09876','asus@gmail.com'),
+       ('megabox','44444','boxMega@gmail.com');
+
+SELECT* FROM accounts;
+ALTER TABLE "accounts" RENAME TO accounts_a;
+SELECT * FROM accounts_a;
+
+---------9---------9---------9
+----------------------------------------------------------------------9
+
+CREATE TABLE users(
+        id  SERIAL PRIMARY KEY ,
+        name VARCHAR(25)NOT NULL,
+        email VARCHAR (50)NOT NULL UNIQUE
+);
+
+INSERT INTO users(name,email)
+VALUES('Kim','kim@gmail.com'),
+      ('olya','olya@mail.ru');
+
+SELECT * FROM users;
+
+
+-----------#10---------------#10--------10
+-----------------------------------------------------------------------10
+
+CREATE TABLE person1(
+        id SERIAL PRIMARY KEY,
+        first_name VARCHAR (30) NOT NULL,
+        last_name   VARCHAR(250) NOT NULL
+);
+
+INSERT INTO person1(first_name,last_name)
+VALUES ('Meerim','Muratbekova'),
+       ('Denis','Denisenko');
+
+SELECT * FROM person1
+DELETE  FROM person1 WHERE first_name = 'Meerim';
+
+----------------11---------11---------11
+----------------------------------------------------------------------------11
+
+CREATE TABLE phone1(
+                       id SERIAL PRIMARY KEY,
+                       name VARCHAR (70) NOT NULL,
+                       model  VARCHAR(250) NOT NULL
+);
+
+INSERT INTO phone1(name, model)
+VALUES ('Samsung','Galaxy S10'),('Apple','Iphone 12');
+
+SELECT * FROM phone1 ORDER BY name;
+
+--#12-------------------------------------------------------------------------12
+
+
+CREATE TABLE girl4(
+                      id SERIAL PRIMARY KEY,
+                      name VARCHAR (80) NOT NULL,
+                      date_of_birth DATE NOT NULL
+);
+
+INSERT INTO girl4(name, date_of_birth)
+VALUES ('Karina',DATE '1990-01-01'),('Saule',DATE '1991-02-01'),('Ajara',DATE '1988-02-04');
+
+UPDATE girl4 SET name = 'Alina' where id =1;
+
+SELECT * FROM girl4;
+
+
+--#13---------------------------------------------------------------------13
+
+
+CREATE TABLE car3(
+                     id SERIAL PRIMARY KEY,
+                     name VARCHAR (80) NOT NULL,
+                     model  VARCHAR(50) NOT NULL
+);
+
+INSERT INTO car3(name, model)
+VALUES ('Tayota','Camry'),('KIA','RIO'),('Honda','Odyssey');
+
+SELECT *FROM car3 ORDER BY name
+LIMIT ALL OFFSET 2;
+
+---#14---------------------------------------------------------------14
+
+
+
+CREATE TABLE girl(
+                     id SERIAL PRIMARY KEY,
+                     name VARCHAR (80) NOT NULL,
+                     date_of_birth DATE NOT NULL
+);
+
+INSERT INTO girl(name, date_of_birth)
+VALUES ('Dinara',DATE '1960-02-01'),
+       ('chynara',DATE '1981-03-05'),
+       ('Zarema',DATE '1986-06-04');
+
+SELECT name,date_of_birth FROM girl ORDER BY date_of_birth DESC;
+
+
+--15--------------------------------------------------------------------15
+
+
+CREATE TABLE boys1(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR (80) NOT NULL,
+        date_of_birth DATE NOT NULL
+);
+
+INSERT INTO boys1(name, date_of_birth)
+VALUES ('Zamir',DATE '1992-01-01'),
+       ('Muktar',DATE '1992-02-01'),
+       ('Atabek',DATE '1992-02-04');
+
+SELECT  * FROM boys1
+WHERE date_of_birth =(SELECT MAX(date_of_birth) FROM boys1);
+
+--16----------------------------------------------------------------------16
+
+CREATE TABLE firm(
+        num NUMERIC(6) IDENTITY PRIMARY KEY,
+
+        name VARCHAR(100) NOT NULL,
+
+        addr VARCHAR(100),
+
+        phone NUMERIC(7)
+
+);
+INSERT INTO firm (name,addr,phone)
+VALUES ('kita','Kirova 25',111122),
+       ('Feta','Vavilova 11',444841);
+
+DROP TABLE firm;
+
+   -------- 17-----------------------------------------------------17-
+
+CREATE TABLE files(
+        num NUMERIC(6),
+
+        name VARCHAR(50) NOT NULL,
+
+        phone NUMERIC(10)
+
+);
+INSERT INTO files (num,name,phone)
+VALUES (1,'Table', 33333),
+       (2,'Chary',12334),
+       (3,'Apple',40494),
+       (4,'Table',23456);
+
+
+SELECT name FROM files;
+
+   --18-------------------------------------------------------------------18
+
+CREATE TABLE test(
+                     id SERIAL PRIMARY KEY,
+
+                     name VARCHAR(100) NOT NULL,
+
+                     town VARCHAR(20) NOT NULL
+
+);
+INSERT INTO test (name,town)
+VALUES ('Alina', 'London'),
+       ('Safina','Tokyo'),
+       ('Yasmina','Singapore'),
+       ('Sefulla','Tokyo');
+
+SELECT DISTINCT town FROM  test;
+
